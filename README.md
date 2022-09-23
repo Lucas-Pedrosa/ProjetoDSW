@@ -13,4 +13,3 @@
 <h4 align="center">
   A plataforma será desenvolvida no padrão MVC, utilizando NodeJS, express, e um banco de dados relacional, com operações de leitura, gravação, alteração e exclusão de dados.
 </h4>
-s
