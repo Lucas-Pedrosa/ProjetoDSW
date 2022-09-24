@@ -3,7 +3,11 @@
 :root {
   --color-white: hsl(252, 30%, 100%);
   --color-light: hsl(252, 30%, 95%);
-  --color-gray: hsl(252, 15%, 65%);
+  --color-gray: hsl(0, 0%, 68%);
+  --color-columbia-blue: hsl(197, 33%, 81%);
+  --color-alice-blue: hsl(193, 21%, 92%);
+  --color-queenblue: hsl(198, 21%, 87%);
+  --color-usafablue: hsl(198, 21%, 39%);
   --color-primary: hsl(252, 75%, 60%);
   --color-secondary: hsl(252, 100%, 90%);
   --color-success: hsl(120, 95%, 65%);
@@ -31,9 +35,127 @@
 body {
   font-family: 'Roboto', sans-serif;
   color: var(--color-dark);
-  background: var(--color-light);
+  background: var(--color-alice-blue);
   overflow-x: hidden;
   display: flex !important;
   flex-direction: column !important;
   justify-content: space-between;
+}
+
+.center_form {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 400px;
+  background-color: var(--color-white);
+  border-radius: 10px;
+}
+
+.center_form h1 {
+  text-align: center;
+  padding: 20px 0 20px 0;
+  color: var(--color-usafablue);
+  border-bottom: 1px solid var(--color-alice-blue);
+}
+
+.center_form form {
+  padding: 0 40px;
+  box-sizing: border-box;
+}
+
+.center_form form .txt_field {
+  position: relative;
+  border-bottom: 2px solid var(--color-alice-blue);
+  margin: 30px 0;
+}
+
+.txt_field input {
+  width: 100%;
+  padding: 0 5px;
+  height: 40px;
+  font-size: 16px;
+  color: var(--color-usafablue);
+}
+
+.txt_field label {
+  position: absolute;
+  top: 50%;
+  left: 5px;
+  color: var(--color-gray);
+  transform: translateY(-50%);
+  font-size: 16px;
+  pointer-events: none;
+  transition: .5s;
+}
+
+.error_msg {
+  color: var(--color-danger);
+}
+
+.error_msg_centered {
+  text-align: center;
+  margin-top: 10px;
+}
+
+.txt_field span::before {
+  content: '';
+  position: absolute;
+  top: 40px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: var(--color-usafablue);
+  transition: .5s;
+}
+
+.txt_field input:focus ~ label,
+.txt_field input:valid ~ label {
+  top: -5px;
+  color: var(--color-usafablue);
+}
+
+.txt_field input:focus ~ span::before,
+.txt_field input:valid ~ span::before {
+  width: 100%;
+}
+
+form button[type="submit"] {
+  width: 100%;
+  height: 50px;
+  border: 2px solid;
+  background: var(--color-usafablue);
+  border-radius: 25px;
+  font-size: 18px;
+  color: var(--color-white);
+  font-weight: 500;
+  cursor: pointer;
+  outline: none;
+  transition: .5s;
+}
+
+form button[type="submit"]:hover {
+  border-color: var(--color-usafablue);
+  background: var(--color-white);
+  color: var(--color-usafablue);
+}
+
+.signup_link {
+  margin: 30px 0;
+  text-align: center;
+  font-size: 16px;
+  color: var(--color-gray);
+}
+
+.signup_link a {
+  font-weight: bold;
+  color: var(--color-usafablue);
+}
+
+.signup_link a:hover {
+  text-decoration: underline;
+}
+
+.signup_link a:visited {
+  color: var(--color-usafablue);
 }

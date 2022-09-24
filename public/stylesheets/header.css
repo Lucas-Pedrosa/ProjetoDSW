@@ -1,11 +1,11 @@
 .menu-header {
-  background-color: white;
+  background-color: var(--color-columbia-blue);
   padding: 10px 10px;
 }
 
 .menu-header a {
   float: left;
-  color: black;
+  color: var(--color-black);
   text-align: center;
   padding: 12px;
   text-decoration: none;
@@ -22,13 +22,13 @@
 }   
 
 .menu-header a:hover {
-  background-color: #ddd;
-  color: black;
+  background-color: var(--color-queenblue);
+  color: var(--color-black);
 }
 
 .menu-header a.active {
-  background-color: #000;
-  color: white;
+  background-color: var(--color-usafablue);
+  color: var(--color-white);
 }
 
 .header-right {

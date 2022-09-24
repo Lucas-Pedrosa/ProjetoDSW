@@ -14,9 +14,16 @@ module.exports.authUserController = (req, res) => {
       res.send(error);
     } else {
       if (result.length > 0) {
-        res.send("Logged in");
+        req.session.userId = result[0].userid;
+        req.session.email = result[0].email;
+        req.session.name = result[0].name;
+
+        res.redirect("/");
       } else {
-        res.send("Not logged in");
+        res.render("users/login", {
+          pageTitle: "Entrar",
+          loginMsg: "Usuário ou senha incorretos"
+        });
       }
     }
   });
