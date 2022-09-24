@@ -1,6 +1,6 @@
 .menu-header {
   background-color: white;
-  padding: 20px 10px;
+  padding: 10px 10px;
 }
 
 .menu-header a {
@@ -12,6 +12,8 @@
   font-size: 18px;
   line-height: 25px;
   border-radius: 4px;
+  transition: ease 0.5s;
+  margin-left: 10px;
 }
 
 .menu-header a.logo {
@@ -35,12 +37,12 @@
 
 @media screen and (max-width: 500px) {
   .menu-header a {
-      float: none;
-      display: block;
-      text-align: left;
+    float: none;
+    display: block;
+    text-align: left;
   }
 
   .header-right {
-      float: none;
+    float: none;
   }
 }
