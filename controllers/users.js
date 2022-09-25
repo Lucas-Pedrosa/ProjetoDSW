@@ -85,3 +85,17 @@ module.exports.addUserController = async (req, res) => {
     console.log(e.message);
   }
 }
+
+module.exports.checkAuthenticated = (req, res, next) => {
+  if (req.session.loggedIn) {
+    return next();
+  }
+  res.redirect("/users/login");
+}
+
+module.exports.checkNotAuthenticated = (req, res, next) => {
+  if (req.session.loggedIn) {
+    return res.redirect("/");
+  }
+  next();
+}

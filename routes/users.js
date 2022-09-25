@@ -1,19 +1,19 @@
 const express = require("express");
 const router = express.Router();
 const { check, validationResult } = require("express-validator");
-const { authUserController, addUserController } = require("../controllers/users");
+const { 
+  authUserController, 
+  addUserController,
+  checkNotAuthenticated
+} = require("../controllers/users");
 
-router.get("/login", (req, res) => {
-  if (req.session.userId) {
-    res.redirect("/");
-  } else {
-    res.render("users/login", { 
-      pageTitle: "Entrar"
-     });
-  }
+router.get("/login", checkNotAuthenticated, (req, res) => {
+  res.render("users/login", { 
+    pageTitle: "Entrar"
+  });
 });
 
-router.post("/login",
+router.post("/login", checkNotAuthenticated,
   [
     check("email").isEmail().normalizeEmail().withMessage("Insira um email válido")
   ], (req, res) => {
@@ -32,13 +32,13 @@ router.post("/login",
   }  
 });
 
-router.get("/signup", (req, res) => {
+router.get("/signup", checkNotAuthenticated, (req, res) => {
   res.render("users/signup", { 
     pageTitle: "Cadastro"
     });
 });
 
-router.post("/signup",
+router.post("/signup", checkNotAuthenticated,
 [
   check("name").isLength({ min: 2, max: 20 }).withMessage("O nome deve conter entre 2 e 20 caracteres"),
   check("email").isEmail().normalizeEmail().withMessage("Insira um email válido"),

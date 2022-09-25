@@ -1,7 +1,8 @@
 const express = require("express");
+const { checkAuthenticated } = require("../controllers/users");
 const router = express.Router();
 
-router.get("/", (req, res) => {
+router.get("/", checkAuthenticated, (req, res) => {
   if (req.session.userId) {
     res.render("index", {
       pageTitle: "Página principal",

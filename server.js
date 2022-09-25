@@ -25,7 +25,7 @@ app.use(bodyParser.urlencoded({
 }));
 app.use(expressSession({
   secret: "4cda1e1d72bd270885008e64aeee3b480bddb147d1535c05a5eb0c3b87339cbc",
-  saveUninitialized: true,
+  saveUninitialized: false,
   cookie: { maxAge: 1000 * 60 * 60 * 24 },
   resave: false
 }));
