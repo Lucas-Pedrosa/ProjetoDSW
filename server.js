@@ -32,8 +32,8 @@ app.use(expressSession({
 app.use(cookieParser());
 
 // Routes
-const indexRouter = require("./routes/index");
-const usersRouter = require("./routes/users");
+const indexRouter = require("./app/routes/index");
+const usersRouter = require("./app/routes/users");
 
 app.use("/", indexRouter);
 app.use("/users", usersRouter);

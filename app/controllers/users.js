@@ -1,6 +1,6 @@
-const dbConnection = require("../config/dbConnection");
+const dbConnection = require("../../config/dbConnection");
 const bcrypt = require("bcrypt");
-const logger = require("../config/logger");
+const logger = require("../../config/logger");
 const { authUser, addUser } = require("../models/users");
 
 module.exports.authUserController = (req, res, pass=null) => {
