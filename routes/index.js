@@ -5,7 +5,7 @@ router.get("/", (req, res) => {
   if (req.session.userId) {
     res.render("index", {
       pageTitle: "Página principal",
-      user: req.session
+      session: req.session
     });
   } else {
     res.redirect("/users/login")

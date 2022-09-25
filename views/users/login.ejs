@@ -2,7 +2,7 @@
   <h1>Entrar</h1>
   <form action="/users/login" method="POST">
     <div class="txt_field">
-      <input type="text" name="email" required>
+      <input type="text" name="email" value="<%= (locals.user && user.email != null) ? user.email : "" %>" required>
       <span></span>
       <label>Email</label>
     </div>

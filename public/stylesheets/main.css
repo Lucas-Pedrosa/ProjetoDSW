@@ -96,6 +96,7 @@ body {
 .error_msg_centered {
   text-align: center;
   margin-top: 10px;
+  font-weight: bold;
 }
 
 .txt_field span::before {

@@ -1,6 +1,6 @@
 <header class="menu-header">
   <a href="/" class="logo">Liber</a>
-  <% if (locals.user) { %>
+  <% if (locals.session && session.loggedIn) { %>
     <div class="header-right">
       <a href="/users/logout">Sair</a>
     </div>
