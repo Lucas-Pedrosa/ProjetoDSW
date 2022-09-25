@@ -1,0 +1,39 @@
+<div class="center_form">
+  <h1>Cadastro</h1>
+  <form action="/users/signup" method="POST">
+    <div class="txt_field">
+      <input type="text" name="name" value="<%= (locals.user && user.name != null) ? user.name : "" %>" required>
+      <span></span>
+      <label>Nome</label>
+    </div>
+    <p class="error_msg"><%= (locals.errors && errors.name != null) ? errors.name.msg : "" %></p>
+
+    <div class="txt_field">
+      <input type="text" name="email" value="<%= (locals.user && user.email != null) ? user.email : "" %>" required>
+      <span></span>
+      <label>Email</label>
+    </div>
+    <p class="error_msg"><%= (locals.errors && errors.email != null) ? errors.email.msg : "" %></p>
+
+    <div class="txt_field">
+      <input type="password" name="password" required>
+      <span></span>
+      <label>Senha</label>
+    </div>
+
+    <div class="txt_field">
+      <input type="password" name="confirmPassword" required>
+      <span></span>
+      <label>Confirmar Senha</label>
+    </div>
+    <p class="error_msg"><%= (locals.errors && errors.password != null) ? errors.password.msg : "" %></p>
+    <p class="error_msg"><%= (locals.errors && errors.confirmPassword != null) ? errors.confirmPassword.msg : "" %></p>
+
+    <button type="submit">Cadastre-se</button>
+    <p class="error_msg error_msg_centered"><%= locals.signupMsg && signupMsg %></p>
+
+    <div class="signup_link">
+      Já possui uma conta?&nbsp;&nbsp;<a href="/users/login">Faça login</a>
+    </div>
+  </form>
+</div>
