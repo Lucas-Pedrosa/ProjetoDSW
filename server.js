@@ -13,7 +13,7 @@ const cookieParser = require("cookie-parser");
 const app = express();
 
 app.set("view engine", "ejs");
-app.set("views", __dirname + "/views");
+app.set("views", __dirname + "/app/views");
 app.set("layout", "layouts/layout");
 
 app.use(express.json());
