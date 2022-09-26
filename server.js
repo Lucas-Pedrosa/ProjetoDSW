@@ -39,5 +39,5 @@ app.use("/", indexRouter);
 app.use("/users", usersRouter);
 
 app.listen(port, function() {
-  console.log("Servidor rodando na porta", port)
+  console.log("Servidor rodando na porta", port);
 });

@@ -5,15 +5,16 @@
   --color-light: hsl(252, 30%, 95%);
   --color-gray: hsl(0, 0%, 68%);
   --color-columbia-blue: hsl(197, 33%, 81%);
-  --color-alice-blue: hsl(193, 21%, 92%);
   --color-queenblue: hsl(198, 21%, 87%);
-  --color-usafablue: hsl(198, 21%, 39%);
-  --color-primary: hsl(252, 75%, 60%);
+  --color-primary: hsl(160, 100%, 36%);
   --color-secondary: hsl(252, 100%, 90%);
   --color-success: hsl(120, 95%, 65%);
   --color-danger: hsl(0, 95%, 65%);
   --color-dark: hsl(252, 30%, 17%);
   --color-black: hsl(252, 30%, 10%);
+  --color-background-light: hsl(211, 24%, 17%);
+  --color-background: hsl(210, 34%, 13%);
+  --color-background-dark: hsl(211, 24%, 11%);
 
   --border-radius: 2rem;
   --card-border-radius: 1rem;
@@ -34,8 +35,8 @@
 
 body {
   font-family: 'Roboto', sans-serif;
-  color: var(--color-dark);
-  background: var(--color-alice-blue);
+  color: var(--color-white);
+  background: var(--color-background);
   overflow-x: hidden;
   display: flex !important;
   flex-direction: column !important;
@@ -48,15 +49,15 @@ body {
   left: 50%;
   transform: translate(-50%, -50%);
   width: 400px;
-  background-color: var(--color-white);
+  background-color: var(--color-background-light);
   border-radius: 10px;
 }
 
 .center_form h1 {
   text-align: center;
   padding: 20px 0 20px 0;
-  color: var(--color-usafablue);
-  border-bottom: 1px solid var(--color-alice-blue);
+  color: var(--color-white);
+  border-bottom: 1px solid var(--color-background);
 }
 
 .center_form form {
@@ -66,7 +67,7 @@ body {
 
 .center_form form .txt_field {
   position: relative;
-  border-bottom: 2px solid var(--color-alice-blue);
+  border-bottom: 2px solid var(--color-background);
   margin: 30px 0;
 }
 
@@ -75,7 +76,8 @@ body {
   padding: 0 5px;
   height: 40px;
   font-size: 16px;
-  color: var(--color-usafablue);
+  color: var(--color-white);
+  background-color: var(--color-background-light);
 }
 
 .txt_field label {
@@ -106,14 +108,14 @@ body {
   left: 0;
   width: 0;
   height: 2px;
-  background: var(--color-usafablue);
+  background: var(--color-primary);
   transition: .5s;
 }
 
 .txt_field input:focus ~ label,
 .txt_field input:valid ~ label {
   top: -5px;
-  color: var(--color-usafablue);
+  color: var(--color-primary);
 }
 
 .txt_field input:focus ~ span::before,
@@ -126,7 +128,7 @@ form button[type="submit"] {
   width: 100%;
   height: 50px;
   border: 2px solid;
-  background: var(--color-usafablue);
+  background: var(--color-background-light);
   border-radius: 25px;
   font-size: 18px;
   color: var(--color-white);
@@ -137,9 +139,7 @@ form button[type="submit"] {
 }
 
 form button[type="submit"]:hover {
-  border-color: var(--color-usafablue);
-  background: var(--color-white);
-  color: var(--color-usafablue);
+  background: var(--color-primary);
 }
 
 .signup_link {
@@ -151,7 +151,7 @@ form button[type="submit"]:hover {
 
 .signup_link a {
   font-weight: bold;
-  color: var(--color-usafablue);
+  color: var(--color-primary);
 }
 
 .signup_link a:hover {
@@ -159,5 +159,5 @@ form button[type="submit"]:hover {
 }
 
 .signup_link a:visited {
-  color: var(--color-usafablue);
+  color: var(--color-primary);
 }
