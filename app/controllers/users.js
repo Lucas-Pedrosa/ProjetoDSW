@@ -3,6 +3,7 @@ const bcrypt = require("bcrypt");
 const crypto = require("crypto");
 const jwt = require("jsonwebtoken");
 const logger = require("../../config/logger");
+const mailer = require("../../config/mailer");
 const { 
   authUser,
   addUser,
@@ -112,9 +113,17 @@ module.exports.forgotPasswordController = (req, res) => {
             email: result[0].email,
             id: result[0].userid
           }
-          const token = jwt.sign(payload, secret, { expiresIn: "15m" });
+          const token = jwt.sign(payload, secret, { expiresIn: "10m" });
           const link = `http://localhost:3000/users/reset-password/${result[0].userid}/${token}`;
-          res.send(`<a href="${link}" target="_blank">Redefinir senha</a>`);
+          const html = `Olá ${result[0].name},<br><br>Clique no link para <a href="${link}" target="_blank">Redefinir senha</a>. Este link expira em 10 minutos.`;
+
+          mailer.sendMail(result[0].email, html);
+
+          res.render("users/forgot-password", {
+            pageTitle: "Redefinir senha",
+            emailMsg: "Link de recuperação enviado para o seu email",
+            user: user
+          });
         } else {
           res.render("users/forgot-password", {
             pageTitle: "Redefinir senha",
