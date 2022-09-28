@@ -1,7 +1,15 @@
 const dbConnection = require("../../config/dbConnection");
 const bcrypt = require("bcrypt");
+const crypto = require("crypto");
+const jwt = require("jsonwebtoken");
 const logger = require("../../config/logger");
-const { authUser, addUser } = require("../models/users");
+const { 
+  authUser,
+  addUser,
+  authUserById,
+  authUserByEmailAndId,
+  changePassword
+} = require("../models/users");
 
 module.exports.authUserController = (req, res, pass=null) => {
   try {
@@ -45,7 +53,7 @@ module.exports.authUserController = (req, res, pass=null) => {
     });
   } catch (error) {
     logger.log({ level: "error", message: error });
-    console.log(e.message);
+    console.log(error.message);
   }
 }
 
@@ -82,8 +90,119 @@ module.exports.addUserController = async (req, res) => {
     });
   } catch (error) {
     logger.log({ level: "error", message: error });
-    console.log(e.message);
+    console.log(error.message);
   }
+}
+
+module.exports.forgotPasswordController = (req, res) => {
+  try {
+    const user = req.body;
+
+    dbConn = dbConnection();
+
+    authUser(user, dbConn, (error, result) => {
+      if (error) {
+        logger.log({ level: "error", message: error });
+        //TODO: Add error screen?
+        res.send(error);
+      } else {
+        if (result.length > 0) {
+          const secret = process.env.JWT_SECRET + result[0].password;
+          const payload = {
+            email: result[0].email,
+            id: result[0].userid
+          }
+          const token = jwt.sign(payload, secret, { expiresIn: "15m" });
+          const link = `http://localhost:3000/users/reset-password/${result[0].userid}/${token}`;
+          res.send(`<a href="${link}" target="_blank">Redefinir senha</a>`);
+        } else {
+          res.render("users/forgot-password", {
+            pageTitle: "Redefinir senha",
+            loginMsg: "Email não registrado",
+            user: user
+          });
+        }
+      }
+    });
+  } catch (error) {
+    logger.log({ level: "error", message: error });
+    console.log(error.message);
+  }
+}
+
+module.exports.resetPasswordController = (req, res, id, token) => {
+  dbConn = dbConnection();
+
+  authUserById(id, dbConn, (error, result) => {
+    if (error) {
+      logger.log({ level: "error", message: error });
+      //TODO: Add error screen?
+      res.send(error);
+    } else {
+      if (result.length > 0) {
+        const secret = process.env.JWT_SECRET + result[0].password;
+
+        try {
+          jwt.verify(token, secret);
+          res.render("users/reset-password", {
+            pageTitle: "Redefinir Senha",
+            email: result[0].email
+          });
+        } catch (error) {
+          res.send("TODO Error screen");
+        }
+        
+      } else {
+        /* res.render("users/forgot-password", {
+          pageTitle: "Redefinir senha",
+          loginMsg: "Email não registrado",
+          user: user
+        }); */
+        res.send("TODO Error screen");
+      }
+    }
+  });
+}
+
+module.exports.changePasswordController = async (req, res, id, token) => {
+  const user = req.body;
+  user.id = id;
+  const pass = user.password;
+  const hashedPass = await bcrypt.hash(pass, 10);
+  user.password = hashedPass;
+
+  dbConn = dbConnection();
+
+  authUserByEmailAndId(user.email, id, dbConn, (error, result) => {
+    if (error) {
+      logger.log({ level: "error", message: error });
+      //TODO: Add error screen?
+      res.send(error);
+    } else {
+      if (result.length > 0) {
+        const secret = process.env.JWT_SECRET + result[0].password;
+
+        try {
+          jwt.verify(token, secret);
+
+          changePassword(user, dbConn, (error, result) => {
+            if (error) {
+              logger.log({ level: "error", message: error });
+              //TODO: Add error screen?
+              res.send(error);
+            } else {
+              this.authUserController(req, res, pass);
+            }
+          });
+        } catch (error) {
+          res.send("TODO Error screen");
+        }
+
+      } else {
+        res.send("TODO Error screen");
+      }
+    }
+  });
 }
 
 module.exports.checkAuthenticated = (req, res, next) => {
