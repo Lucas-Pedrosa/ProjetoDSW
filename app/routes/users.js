@@ -12,7 +12,8 @@ const {
 
 router.get("/login", checkNotAuthenticated, (req, res) => {
   res.render("users/login", { 
-    pageTitle: "Entrar"
+    pageTitle: "Entrar",
+    active: "login"
   });
 });
 
@@ -28,6 +29,7 @@ router.post("/login", checkNotAuthenticated,
 
     res.render("users/login", {
       pageTitle: "Entrar",
+      active: "login",
       errors: errors
     });
   } else {
@@ -37,7 +39,8 @@ router.post("/login", checkNotAuthenticated,
 
 router.get("/signup", checkNotAuthenticated, (req, res) => {
   res.render("users/signup", { 
-    pageTitle: "Cadastro"
+    pageTitle: "Cadastro",
+    active: "signup"
     });
 });
 
@@ -61,6 +64,7 @@ router.post("/signup", checkNotAuthenticated,
 
     res.render("users/signup", {
       pageTitle: "Cadastro",
+      active: "signup",
       errors: errors,
       user: user
     });

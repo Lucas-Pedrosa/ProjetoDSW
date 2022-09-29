@@ -39,6 +39,7 @@ module.exports.authUserController = (req, res, pass=null) => {
           } else {
             res.render("users/login", {
               pageTitle: "Entrar",
+              active: "login",
               loginMsg: "Email ou senha incorretos",
               user: user
             });
@@ -46,6 +47,7 @@ module.exports.authUserController = (req, res, pass=null) => {
         } else {
           res.render("users/login", {
             pageTitle: "Entrar",
+            active: "login",
             loginMsg: "Email ou senha incorretos",
             user: user
           });
@@ -83,6 +85,7 @@ module.exports.addUserController = async (req, res) => {
   
         res.render("users/signup", {
           pageTitle: "Cadastro",
+          active: "signup",
           signupMsg: errMessage
         });
       } else {

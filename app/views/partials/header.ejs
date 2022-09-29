@@ -6,8 +6,8 @@
     </div>
   <% } else { %>
     <div class="header-right">
-        <a href="/users/login">Login</a>
-        <a href="/users/signup">Cadastre-se</a>
+        <a class="<%= locals.active === "login" && "active" %>" href="/users/login">Login</a>
+        <a class="<%= locals.active === "signup" && "active" %>" href="/users/signup">Cadastre-se</a>
     </div>
   <% } %>
 </header>
