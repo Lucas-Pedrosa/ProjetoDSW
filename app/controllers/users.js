@@ -25,7 +25,7 @@ module.exports.authUserController = (req, res, pass=null) => {
     authUser(user, dbConn, async (error, result) => {
       if (error) {
         logger.log({ level: "error", message: error });
-        res.render("error", {
+        res.render("errors/error", {
           errorMsg: "Erro desconhecido."
         });
       } else {
@@ -58,7 +58,7 @@ module.exports.authUserController = (req, res, pass=null) => {
   } catch (error) {
     logger.log({ level: "error", message: error });
     console.log(error.message);
-    res.render("error", {
+    res.render("errors/error", {
       errorMsg: "Erro desconhecido."
     });
   }
@@ -98,7 +98,7 @@ module.exports.addUserController = async (req, res) => {
   } catch (error) {
     logger.log({ level: "error", message: error });
     console.log(error.message);
-    res.render("error", {
+    res.render("errors/error", {
       errorMsg: "Erro desconhecido."
     });
   }
@@ -113,7 +113,7 @@ module.exports.forgotPasswordController = (req, res) => {
     authUser(user, dbConn, (error, result) => {
       if (error) {
         logger.log({ level: "error", message: error });
-        res.render("error", {
+        res.render("errors/error", {
           errorMsg: "Erro desconhecido."
         });
       } else {
@@ -146,7 +146,7 @@ module.exports.forgotPasswordController = (req, res) => {
   } catch (error) {
     logger.log({ level: "error", message: error });
     console.log(error.message);
-    res.render("error", {
+    res.render("errors/error", {
       errorMsg: "Erro desconhecido."
     });
   }
@@ -158,7 +158,7 @@ module.exports.resetPasswordController = (req, res, id, token) => {
   authUserById(id, dbConn, (error, result) => {
     if (error) {
       logger.log({ level: "error", message: error });
-      res.render("error", {
+      res.render("errors/error", {
         errorMsg: "Erro desconhecido."
       });
     } else {
@@ -172,15 +172,11 @@ module.exports.resetPasswordController = (req, res, id, token) => {
             email: result[0].email
           });
         } catch (error) {
-          res.render("error", {
-            errorMsg: "URL Inválida."
-          });
+          res.render("errors/unknownUrl");
         }
         
       } else {
-        res.render("error", {
-          errorMsg: "URL Inválida"
-        });
+        res.render("errors/unknownUrl");
       }
     }
   });
@@ -198,7 +194,7 @@ module.exports.changePasswordController = async (req, res, id, token) => {
   authUserByEmailAndId(user.email, id, dbConn, (error, result) => {
     if (error) {
       logger.log({ level: "error", message: error });
-      res.render("error", {
+      res.render("errors/error", {
         errorMsg: "Erro desconhecido."
       });
     } else {
@@ -211,7 +207,7 @@ module.exports.changePasswordController = async (req, res, id, token) => {
           changePassword(user, dbConn, (error, result) => {
             if (error) {
               logger.log({ level: "error", message: error });
-              res.render("error", {
+              res.render("errors/error", {
                 errorMsg: "Erro desconhecido."
               });
             } else {
@@ -219,15 +215,11 @@ module.exports.changePasswordController = async (req, res, id, token) => {
             }
           });
         } catch (error) {
-          res.render("error", {
-            errorMsg: "URL Inválida."
-          });
+          res.render(res.render("errors/unknownUrl"));
         }
 
       } else {
-        res.render("error", {
-          errorMsg: "URL Inválida."
-        });
+        res.render("errors/unknownUrl");
       }
     }
   });
