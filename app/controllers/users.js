@@ -25,8 +25,9 @@ module.exports.authUserController = (req, res, pass=null) => {
     authUser(user, dbConn, async (error, result) => {
       if (error) {
         logger.log({ level: "error", message: error });
-        //TODO: Add error screen?
-        res.send(error);
+        res.render("error", {
+          errorMsg: "Erro desconhecido."
+        });
       } else {
         if (result.length > 0) {
           if (await bcrypt.compare(user.password, result[0].password)) {
@@ -57,6 +58,9 @@ module.exports.authUserController = (req, res, pass=null) => {
   } catch (error) {
     logger.log({ level: "error", message: error });
     console.log(error.message);
+    res.render("error", {
+      errorMsg: "Erro desconhecido."
+    });
   }
 }
 
@@ -71,7 +75,6 @@ module.exports.addUserController = async (req, res) => {
   
     addUser(user, dbConn, (error, result) => {
       if (error) {
-        //TODO: Add error screen?
         let errMessage = "";
   
         switch(error.errno) {
@@ -95,6 +98,9 @@ module.exports.addUserController = async (req, res) => {
   } catch (error) {
     logger.log({ level: "error", message: error });
     console.log(error.message);
+    res.render("error", {
+      errorMsg: "Erro desconhecido."
+    });
   }
 }
 
@@ -107,8 +113,9 @@ module.exports.forgotPasswordController = (req, res) => {
     authUser(user, dbConn, (error, result) => {
       if (error) {
         logger.log({ level: "error", message: error });
-        //TODO: Add error screen?
-        res.send(error);
+        res.render("error", {
+          errorMsg: "Erro desconhecido."
+        });
       } else {
         if (result.length > 0) {
           const secret = process.env.JWT_SECRET + result[0].password;
@@ -139,6 +146,9 @@ module.exports.forgotPasswordController = (req, res) => {
   } catch (error) {
     logger.log({ level: "error", message: error });
     console.log(error.message);
+    res.render("error", {
+      errorMsg: "Erro desconhecido."
+    });
   }
 }
 
@@ -148,8 +158,9 @@ module.exports.resetPasswordController = (req, res, id, token) => {
   authUserById(id, dbConn, (error, result) => {
     if (error) {
       logger.log({ level: "error", message: error });
-      //TODO: Add error screen?
-      res.send(error);
+      res.render("error", {
+        errorMsg: "Erro desconhecido."
+      });
     } else {
       if (result.length > 0) {
         const secret = process.env.JWT_SECRET + result[0].password;
@@ -161,16 +172,15 @@ module.exports.resetPasswordController = (req, res, id, token) => {
             email: result[0].email
           });
         } catch (error) {
-          res.send("TODO Error screen");
+          res.render("error", {
+            errorMsg: "URL Inválida."
+          });
         }
         
       } else {
-        /* res.render("users/forgot-password", {
-          pageTitle: "Redefinir senha",
-          loginMsg: "Email não registrado",
-          user: user
-        }); */
-        res.send("TODO Error screen");
+        res.render("error", {
+          errorMsg: "URL Inválida"
+        });
       }
     }
   });
@@ -188,8 +198,9 @@ module.exports.changePasswordController = async (req, res, id, token) => {
   authUserByEmailAndId(user.email, id, dbConn, (error, result) => {
     if (error) {
       logger.log({ level: "error", message: error });
-      //TODO: Add error screen?
-      res.send(error);
+      res.render("error", {
+        errorMsg: "Erro desconhecido."
+      });
     } else {
       if (result.length > 0) {
         const secret = process.env.JWT_SECRET + result[0].password;
@@ -200,18 +211,23 @@ module.exports.changePasswordController = async (req, res, id, token) => {
           changePassword(user, dbConn, (error, result) => {
             if (error) {
               logger.log({ level: "error", message: error });
-              //TODO: Add error screen?
-              res.send(error);
+              res.render("error", {
+                errorMsg: "Erro desconhecido."
+              });
             } else {
               this.authUserController(req, res, pass);
             }
           });
         } catch (error) {
-          res.send("TODO Error screen");
+          res.render("error", {
+            errorMsg: "URL Inválida."
+          });
         }
 
       } else {
-        res.send("TODO Error screen");
+        res.render("error", {
+          errorMsg: "URL Inválida."
+        });
       }
     }
   });
