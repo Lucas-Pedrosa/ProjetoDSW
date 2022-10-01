@@ -38,6 +38,4 @@ const usersRouter = require("./app/routes/users");
 app.use("/", indexRouter);
 app.use("/users", usersRouter);
 
-app.listen(port, function() {
-  console.log("Servidor rodando na porta", port);
-});
+app.listen(port, () => console.log("Servidor rodando na porta", port));

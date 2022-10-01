@@ -127,6 +127,7 @@ module.exports.forgotPasswordController = (req, res) => {
           const link = `http://localhost:3000/users/reset-password/${result[0].userid}/${token}`;
           const html = `Olá ${result[0].name},<br><br>Clique no link para <a href="${link}" target="_blank">Redefinir senha</a>. Este link expira em 10 minutos.`;
 
+          console.log(link);
           mailer.sendMail(result[0].email, html);
 
           res.render("users/forgot-password", {
