@@ -41,7 +41,7 @@ module.exports.authUserController = (req, res, pass=null) => {
             res.render("users/login", {
               pageTitle: "Entrar",
               active: "login",
-              loginMsg: "Email ou senha incorretos",
+              loginMsg: "Email ou senha inválidos",
               user: user
             });
           }
@@ -49,7 +49,7 @@ module.exports.authUserController = (req, res, pass=null) => {
           res.render("users/login", {
             pageTitle: "Entrar",
             active: "login",
-            loginMsg: "Email ou senha incorretos",
+            loginMsg: "Email ou senha inválidos",
             user: user
           });
         }
@@ -70,6 +70,7 @@ module.exports.addUserController = async (req, res) => {
     const pass = user.password;
     const hashedPass = await bcrypt.hash(pass, 10);
     user.password = hashedPass;
+    user.userid = crypto.randomUUID();
   
     dbConn = dbConnection();
   
@@ -125,7 +126,7 @@ module.exports.forgotPasswordController = (req, res) => {
           }
           const token = jwt.sign(payload, secret, { expiresIn: "10m" });
           const link = `http://localhost:3000/users/reset-password/${result[0].userid}/${token}`;
-          const html = `Olá ${result[0].name},<br><br>Clique no link para <a href="${link}" target="_blank">Redefinir senha</a>. Este link expira em 10 minutos.`;
+          const html = `Olá ${result[0].name},<br><br><a href="${link}" target="_blank">Clique aqui para Redefinir sua senha</a>. Este link expira em 10 minutos.`;
 
           console.log(link);
           mailer.sendMail(result[0].email, html);
