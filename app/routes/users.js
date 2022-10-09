@@ -7,7 +7,8 @@ const {
   forgotPasswordController,
   resetPasswordController,
   changePasswordController,
-  checkNotAuthenticated
+  checkNotAuthenticated,
+  checkAuthenticated
 } = require("../controllers/users");
 
 router.get("/login", checkNotAuthenticated, (req, res) => {
@@ -128,6 +129,13 @@ router.post("/reset-password/:id/:token",
     } else {
       changePasswordController(req, res, id, token);
     }
+});
+
+router.get("/profile/:id", checkAuthenticated, (req, res) => {
+  res.render("users/profile", {
+    pageTitle: "Perfil",
+    session: req.session
+   });
 });
 
 router.get("/logout", (req, res) => {
