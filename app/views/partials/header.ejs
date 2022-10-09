@@ -2,7 +2,9 @@
   <a href="/" class="logo">Liber</a>
   <% if (locals.session && session.loggedIn) { %>
     <div class="header-right">
-      <a href="/users/logout">Sair</a>
+      <label for="check">
+        <i class="fas fa-bars" id="sidebar_btn"></i>
+      </label>
     </div>
   <% } else { %>
     <div class="header-right">
