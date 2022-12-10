@@ -18,5 +18,9 @@ module.exports = {
   changePassword: (user, connection, callback) => {
     const sql = "UPDATE users SET password = ? WHERE userid = ? AND email = ?;";
     connection.query(sql, [user.password, user.id, user.email], callback);
+  },
+  deleteUser: (id, connection, callback) => {
+    const sql = "DELETE FROM users WHERE userid = ?;";
+    connection.query(sql, [id], callback);
   }
 }

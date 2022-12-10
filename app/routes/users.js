@@ -7,6 +7,7 @@ const {
   forgotPasswordController,
   resetPasswordController,
   changePasswordController,
+  deleteUserController,
   checkNotAuthenticated,
   checkAuthenticated
 } = require("../controllers/users");
@@ -129,6 +130,35 @@ router.post("/reset-password/:id/:token",
     } else {
       changePasswordController(req, res, id, token);
     }
+});
+
+router.get("/delete", checkAuthenticated, (req, res) => {
+  res.render("users/delete", {
+    pageTitle: "Excluir conta",
+    session: req.session
+  });
+});
+
+router.post("/delete", checkAuthenticated, 
+[
+  check("email").isEmail().normalizeEmail().withMessage("Insira um email válido")
+], (req, res) => {
+  const validation = validationResult(req);
+
+  if (!validation.isEmpty()) {
+    const errors = validation.mapped();
+
+    res.render("users/delete", {
+      pageTitle: "Excluir conta",
+      errors: errors
+    });
+  } else {
+    const { userId } = req.session;
+    const sessionEmail = req.session.email;
+    const { email } = req.body;
+
+    deleteUserController(req, res, userId, sessionEmail, email);
+  }
 });
 
 router.get("/profile/:id", checkAuthenticated, (req, res) => {

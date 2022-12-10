@@ -9,7 +9,8 @@ const {
   addUser,
   authUserById,
   authUserByEmailAndId,
-  changePassword
+  changePassword,
+  deleteUser
 } = require("../models/users");
 
 module.exports.authUserController = (req, res, pass=null) => {
@@ -225,6 +226,29 @@ module.exports.changePasswordController = async (req, res, id, token) => {
       }
     }
   });
+}
+
+module.exports.deleteUserController = (req, res, userId, sessionEmail, email) => {
+  if (email !== sessionEmail) {
+    res.render("users/delete", {
+      pageTitle: "Excluir conta",
+      emailMsg: "Email não confere."
+    });
+  } else {
+    dbConn = dbConnection();
+
+    deleteUser(userId, dbConn, (error, result) => {
+      if (error) {
+        logger.log({ level: "error", message: error });
+        res.render("errors/error", {
+          errorMsg: "Erro desconhecido."
+        });
+      } else {
+        req.session.destroy();
+        res.redirect("/");
+      }
+    });
+  }
 }
 
 module.exports.checkAuthenticated = (req, res, next) => {

@@ -1,0 +1,16 @@
+<div class="center_form">
+  <h1>Excluir conta</h1>
+  <form action="/users/delete" method="POST">
+    <p class="delete_account">Insira o seu email abaixo caso para excluir sua conta. Essa ação é irreversível.</p>
+
+    <div class="txt_field">
+      <input type="text" name="email" required>
+      <span></span>
+      <label>Email</label>
+    </div>
+    <p class="error_msg"><%= locals.errors && errors.email.msg %></p>
+
+    <button type="submit">Excluir</button>
+    <p class="error_msg error_msg_centered"><%= locals.emailMsg && emailMsg %></p>
+  </form>
+</div>

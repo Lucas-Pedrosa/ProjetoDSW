@@ -294,3 +294,10 @@ label #sidebar_btn:hover {
 .right_sidebar .delete_text {
   color: var(--color-danger);
 }
+
+.center_form .delete_account {
+  text-align: center;
+  padding-top: 20px;
+  font-size: 14px;
+  color: var(--color-danger);
+}
