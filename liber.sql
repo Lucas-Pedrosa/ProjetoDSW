@@ -30,7 +30,6 @@ CREATE TABLE `users` (
   `name` varchar(50) NOT NULL,
   `password` varchar(200) NOT NULL,
   `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `admin` tinyint DEFAULT NULL,
   PRIMARY KEY (`userid`),
   UNIQUE KEY `email` (`email`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
@@ -42,7 +41,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES ('34b0746a-5a39-4be1-892e-c400d132cd63','lucas.pedrosa@aluno.ifsp.edu.br','Lucas','$2b$10$.u645AOlnXSbUPu5dqXlwewIX./pF7mpy6nXOw7gRMoGs2fJ9JLn6','2022-10-08 14:28:20',0),('ad5770f0-8c2a-44e7-b37d-6c9021169ac6','admin@liber.com','Admin','$2b$10$wS6/ViiHrhfIP1b46.qu7uJr4GMZsVyQFkJVJNGGFpc7PNhiXjn22','2022-10-08 14:09:45',1);
+INSERT INTO `users` VALUES ('34b0746a-5a39-4be1-892e-c400d132cd63','lucas.pedrosa@aluno.ifsp.edu.br','Lucas','$2b$10$.u645AOlnXSbUPu5dqXlwewIX./pF7mpy6nXOw7gRMoGs2fJ9JLn6','2022-10-08 14:28:20',0),('ad5770f0-8c2a-44e7-b37d-6c9021169ac6','admin@liber.com','Admin','$2b$10$wS6/ViiHrhfIP1b46.qu7uJr4GMZsVyQFkJVJNGGFpc7PNhiXjn22','2022-10-08 14:09:45');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 

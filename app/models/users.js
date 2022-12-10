@@ -4,7 +4,7 @@ module.exports = {
     connection.query(sql, [user.email], callback);
   },
   addUser: (user, connection, callback) => {
-    const sql = "INSERT INTO users (userid, name, email, password, admin) VALUES (?, ?, ?, ?, ?);"
+    const sql = "INSERT INTO users (userid, name, email, password) VALUES (?, ?, ?, ?);"
     connection.query(sql, [user.userid, user.name, user.email, user.password, 0], callback);
   },
   authUserById: (id, connection, callback) => {
