@@ -213,7 +213,7 @@ form button[type="submit"]:hover {
   padding: 13px 5%;
 }
 
-.left_sidebar {
+.side_content {
   background: var(--color-background-light);
   flex-basis: 25%;
   position: sticky;
@@ -289,4 +289,8 @@ label #sidebar_btn:hover {
 
 #check:checked ~ .right_sidebar {
   right: -250px;
+}
+
+.right_sidebar .delete_text {
+  color: var(--color-danger);
 }
