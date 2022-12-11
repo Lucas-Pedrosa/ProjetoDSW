@@ -4,7 +4,11 @@
   </div>
   
   <div class="side_content">
-    
+    <% locals.users.usersResult.forEach(element => { %>
+      <% if (element.userid !== locals.session.userId) { %>
+        <%- include("./partials/userCard.ejs", {element: element}) %>
+      <% } %>
+    <% }) %>
   </div>
   
   <%- include("./partials/sidebar.ejs") %>

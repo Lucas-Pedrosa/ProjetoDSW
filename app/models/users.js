@@ -5,7 +5,7 @@ module.exports = {
   },
   addUser: (user, connection, callback) => {
     const sql = "INSERT INTO users (userid, name, email, password) VALUES (?, ?, ?, ?);"
-    connection.query(sql, [user.userid, user.name, user.email, user.password, 0], callback);
+    connection.query(sql, [user.userid, user.name, user.email, user.password], callback);
   },
   authUserById: (id, connection, callback) => {
     const sql = "SELECT userid, email, name, password FROM users WHERE userid = ?;";
@@ -22,5 +22,9 @@ module.exports = {
   deleteUser: (id, connection, callback) => {
     const sql = "DELETE FROM users WHERE userid = ?;";
     connection.query(sql, [id], callback);
+  },
+  allUsers: (connection, callback) => {
+    const sql = "SELECT userid, name, email FROM users;";
+    connection.query(sql, callback);
   }
 }

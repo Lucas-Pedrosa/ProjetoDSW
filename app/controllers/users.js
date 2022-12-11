@@ -10,7 +10,8 @@ const {
   authUserById,
   authUserByEmailAndId,
   changePassword,
-  deleteUser
+  deleteUser,
+  allUsers
 } = require("../models/users");
 
 module.exports.authUserController = (req, res, pass=null) => {
@@ -249,6 +250,21 @@ module.exports.deleteUserController = (req, res, userId, sessionEmail, email) =>
       }
     });
   }
+}
+
+module.exports.allUsersController = (req, res) => {
+  dbConn = dbConnection();
+
+  allUsers(dbConn, (error, result) => {
+    if (error) {
+      logger.log({ level: "error", message: error });
+      res.render("errors/error", {
+        errorMsg: "Erro desconhecido."
+      });
+    } else {
+      return result;
+    }
+  });
 }
 
 module.exports.checkAuthenticated = (req, res, next) => {

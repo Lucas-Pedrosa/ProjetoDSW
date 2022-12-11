@@ -1,0 +1,21 @@
+<div class="card_container">
+  <div class="profile_card">
+    <img src="/images/prof-pic.jpg" class="profile_pic">
+    <h1><%= element.name %></h1>
+    <p><%= element.email %></p>
+    <a href="#" class="follow_btn">Seguir</a>
+
+    <div class="row">
+      <div class="col">
+        <h3>Seguidores</h3>
+        <p>0</p>
+      </div>
+      <div class="col">
+        <h3>Seguindo</h3>
+        <p>0</p>
+      </div>
+    </div>
+
+    <a class="profile_btn" href="/users/profile/<%= element.userid %>">Ver perfil</a>
+  </div>
+</div>

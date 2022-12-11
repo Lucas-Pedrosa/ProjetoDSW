@@ -1,12 +1,12 @@
 const express = require("express");
 const { checkAuthenticated } = require("../controllers/users");
+const {
+  indexController
+} = require("../controllers/index");
 const router = express.Router();
 
 router.get("/", checkAuthenticated, (req, res) => {
-  res.render("index", {
-    pageTitle: "Página principal",
-    session: req.session
-  });
+  indexController(req, res);
 });
 
 module.exports = router;

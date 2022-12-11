@@ -57,7 +57,7 @@ router.post("/signup", checkNotAuthenticated,
       }
       return true;
     })
-  ] ,(req, res) => {
+  ], (req, res) => {
   const validation = validationResult(req);
   const user = req.body;
 
