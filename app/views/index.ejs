@@ -4,6 +4,7 @@
   </div>
   
   <div class="side_content">
+    <h2>Outros Usuários</h2>
     <% locals.users.usersResult.forEach(element => { %>
       <% if (element.userid !== locals.session.userId) { %>
         <%- include("./partials/userCard.ejs", {element: element}) %>
