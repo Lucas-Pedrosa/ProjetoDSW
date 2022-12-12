@@ -34,8 +34,10 @@ app.use(cookieParser());
 // Routes
 const indexRouter = require("./app/routes/index");
 const usersRouter = require("./app/routes/users");
+const libraryRouter = require("./app/routes/library");
 
 app.use("/", indexRouter);
 app.use("/users", usersRouter);
+app.use("/library", libraryRouter);
 
 app.listen(port, () => console.log("Servidor rodando na porta", port));

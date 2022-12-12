@@ -8,6 +8,8 @@
       <h1><%= locals.user.name %></h1>
       <p><%= locals.user.email %></p>
 
+      <a class="follow_btn" href="/library/<%= locals.user.userid %> ">Biblioteca</a>
+
       <% if (locals.user.userid !== locals.session.userId) { %>
         <% if (locals.user.follows) { %>
           <a href="/users/unfollow/<%= locals.user.userid %>" class="follow_btn">Deixar de seguir</a>
@@ -24,6 +26,10 @@
         <div class="col">
           <p>Seguindo</p>
           <h2><%= locals.user.following %></h2>
+        </div>
+        <div class="col">
+          <p>Biblioteca</p>
+          <h2><%= locals.user.library %></h2>
         </div>
       </div>
     </div>

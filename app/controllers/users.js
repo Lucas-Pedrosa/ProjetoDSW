@@ -21,6 +21,9 @@ const {
   follow,
   unfollow
 } = require("../models/followers");
+const {
+  libraryCount
+} = require("../models/library");
 
 module.exports.authUserController = (req, res, pass=null) => {
   try {
@@ -286,6 +289,7 @@ module.exports.profileController = (req, res, userId) => {
       });
     } else {
       if (result.length > 0) {
+
         followersCount(userId, dbConn, (error, followers) => {
           if (error) {
             logger.log({ level: "error", message: error });
@@ -304,19 +308,30 @@ module.exports.profileController = (req, res, userId) => {
               } else {
                 result[0].following = following[0].following;
 
-                follows(req.session.userId, userId, dbConn, (error, follows) => {
+                libraryCount(userId, dbConn, (error, library) => {
                   if (error) {
                     logger.log({ level: "error", message: error });
                     res.render("errors/error", {
                       errorMsg: "Erro desconhecido."
                     });
                   } else {
-                    result[0].follows = follows[0].follows;
+                    result[0].library = library[0].library;
 
-                    res.render("users/profile", {
-                      pageTitle: "Perfil",
-                      user: result[0],
-                      session: req.session
+                    follows(req.session.userId, userId, dbConn, (error, follows) => {
+                      if (error) {
+                        logger.log({ level: "error", message: error });
+                        res.render("errors/error", {
+                          errorMsg: "Erro desconhecido."
+                        });
+                      } else {
+                        result[0].follows = follows[0].follows;
+    
+                        res.render("users/profile", {
+                          pageTitle: "Perfil",
+                          user: result[0],
+                          session: req.session
+                        });
+                      }
                     });
                   }
                 });

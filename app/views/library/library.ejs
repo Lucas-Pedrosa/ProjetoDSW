@@ -1,0 +1,9 @@
+<div class="container">
+  <%- include("../partials/sidebar.ejs") %>
+</div>
+<div class="main_content">
+  <h2>Biblioteca</h2>
+  <% locals.library.forEach(element => { %>
+    <%- include("../partials/bookCard.ejs", {element: element}) %>
+  <% }) %>
+</div>
