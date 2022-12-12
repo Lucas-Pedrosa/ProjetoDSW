@@ -16,9 +16,7 @@ module.exports.indexController = (req, res) => {
       });
     }
 
-
     pageResult = Object.assign({ "usersResult": usersResult });
-    console.log(pageResult);
     res.render("index", {
       pageTitle: "Página inicial",
       session: req.session,

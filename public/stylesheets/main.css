@@ -213,6 +213,14 @@ form button[type="submit"]:hover {
   padding: 13px 5%;
 }
 
+.container_center {
+  display: flex;
+  justify-content: space-between;
+  padding: 13px 5%;
+  align-items: center;
+  justify-content: center;
+}
+
 .side_content {
   background: var(--color-background-dark);
   flex-basis: 25%;
@@ -313,6 +321,7 @@ label #sidebar_btn:hover {
   align-items: center;
   justify-content: center;
   margin-top: 20px;
+  max-width: 700px;
 }
 
 .card_container .profile_card {
@@ -346,6 +355,7 @@ label #sidebar_btn:hover {
 .card_container .row {
   display: flex;
   justify-content: space-around;
+  margin-bottom: 20px;
 }
 
 .card_container .profile_btn {

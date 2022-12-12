@@ -9,7 +9,8 @@ const {
   changePasswordController,
   deleteUserController,
   checkNotAuthenticated,
-  checkAuthenticated
+  checkAuthenticated,
+  profileController
 } = require("../controllers/users");
 
 router.get("/login", checkNotAuthenticated, (req, res) => {
@@ -162,10 +163,9 @@ router.post("/delete", checkAuthenticated,
 });
 
 router.get("/profile/:id", checkAuthenticated, (req, res) => {
-  res.render("users/profile", {
-    pageTitle: "Perfil",
-    session: req.session
-   });
+  const { id } = req.params;
+
+  profileController(req, res, id);
 });
 
 router.get("/logout", (req, res) => {

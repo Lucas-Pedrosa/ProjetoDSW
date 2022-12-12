@@ -1,4 +1,24 @@
 <div class="container">
-  Perfil
   <%- include("../partials/sidebar.ejs") %>
+</div>
+<div class="container_center">
+  <div class="card_container">
+    <div class="profile_card">
+      <img src="/images/prof-pic.jpg" class="profile_pic">
+      <h1><%= locals.user.name %></h1>
+      <p><%= locals.user.email %></p>
+      <a href="#" class="follow_btn">Seguir</a>
+
+      <div class="row">
+        <div class="col">
+          <p>Seguidores</p>
+          <h2><%= locals.user.followers %></h2>
+        </div>
+        <div class="col">
+          <p>Seguindo</p>
+          <h2><%= locals.user.following %></h2>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

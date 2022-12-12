@@ -11,8 +11,13 @@ const {
   authUserByEmailAndId,
   changePassword,
   deleteUser,
-  allUsers
+  allUsers,
+  userById
 } = require("../models/users");
+const {
+  followersCount,
+  followingCount
+} = require("../models/followers");
 
 module.exports.authUserController = (req, res, pass=null) => {
   try {
@@ -263,6 +268,47 @@ module.exports.allUsersController = (req, res) => {
       });
     } else {
       return result;
+    }
+  });
+}
+
+module.exports.profileController = (req, res, userId) => {
+  dbConn = dbConnection();
+
+  userById(userId, dbConn, (error, result) => {
+    if (error) {
+      logger.log({ level: "error", message: error });
+      res.render("errors/error", {
+        errorMsg: "Erro desconhecido."
+      });
+    } else {
+      followersCount(userId, dbConn, (error, followers) => {
+        if (error) {
+          logger.log({ level: "error", message: error });
+          res.render("errors/error", {
+            errorMsg: "Erro desconhecido."
+          });
+        } else {
+          result[0].followers = followers[0].followers;
+          
+          followingCount(userId, dbConn, (error, following) => {
+            if (error) {
+              logger.log({ level: "error", message: error });
+              res.render("errors/error", {
+                errorMsg: "Erro desconhecido."
+              });
+            } else {
+              result[0].following = following[0].following;
+
+              res.render("users/profile", {
+                pageTitle: "Perfil",
+                user: result[0],
+                session: req.session
+              });
+            }
+          });
+        }
+      });      
     }
   });
 }

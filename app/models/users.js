@@ -26,5 +26,9 @@ module.exports = {
   allUsers: (connection, callback) => {
     const sql = "SELECT userid, name, email FROM users;";
     connection.query(sql, callback);
+  },
+  userById: (id, connection, callback) => {
+    const sql = "SELECT userid, name, email FROM users WHERE userid = ?;";
+    connection.query(sql, [id], callback);
   }
 }
