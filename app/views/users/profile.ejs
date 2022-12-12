@@ -7,7 +7,14 @@
       <img src="/images/prof-pic.jpg" class="profile_pic">
       <h1><%= locals.user.name %></h1>
       <p><%= locals.user.email %></p>
-      <a href="#" class="follow_btn">Seguir</a>
+
+      <% if (locals.user.userid !== locals.session.userId) { %>
+        <% if (locals.user.follows) { %>
+          <a href="/users/unfollow/<%= locals.user.userid %>" class="follow_btn">Deixar de seguir</a>
+        <% } else { %>
+          <a href="/users/follow/<%= locals.user.userid %>" class="follow_btn">Seguir</a>
+        <% } %>
+      <% } %>
 
       <div class="row">
         <div class="col">

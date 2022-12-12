@@ -356,6 +356,7 @@ label #sidebar_btn:hover {
   display: flex;
   justify-content: space-around;
   margin-bottom: 20px;
+  margin-top: 20px;
 }
 
 .card_container .profile_btn {

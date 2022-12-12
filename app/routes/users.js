@@ -10,7 +10,9 @@ const {
   deleteUserController,
   checkNotAuthenticated,
   checkAuthenticated,
-  profileController
+  profileController,
+  followController,
+  unfollowController
 } = require("../controllers/users");
 
 router.get("/login", checkNotAuthenticated, (req, res) => {
@@ -166,6 +168,18 @@ router.get("/profile/:id", checkAuthenticated, (req, res) => {
   const { id } = req.params;
 
   profileController(req, res, id);
+});
+
+router.get("/follow/:id", checkAuthenticated, (req, res) => {
+  const { id } = req.params;
+
+  followController(req, res, id);
+});
+
+router.get("/unfollow/:id", checkAuthenticated, (req, res) => {
+  const { id } = req.params;
+
+  unfollowController(req, res, id);
 });
 
 router.get("/logout", (req, res) => {

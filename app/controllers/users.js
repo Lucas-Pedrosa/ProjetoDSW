@@ -16,7 +16,10 @@ const {
 } = require("../models/users");
 const {
   followersCount,
-  followingCount
+  followingCount,
+  follows,
+  follow,
+  unfollow
 } = require("../models/followers");
 
 module.exports.authUserController = (req, res, pass=null) => {
@@ -282,33 +285,78 @@ module.exports.profileController = (req, res, userId) => {
         errorMsg: "Erro desconhecido."
       });
     } else {
-      followersCount(userId, dbConn, (error, followers) => {
-        if (error) {
-          logger.log({ level: "error", message: error });
-          res.render("errors/error", {
-            errorMsg: "Erro desconhecido."
-          });
-        } else {
-          result[0].followers = followers[0].followers;
-          
-          followingCount(userId, dbConn, (error, following) => {
-            if (error) {
-              logger.log({ level: "error", message: error });
-              res.render("errors/error", {
-                errorMsg: "Erro desconhecido."
-              });
-            } else {
-              result[0].following = following[0].following;
+      if (result.length > 0) {
+        followersCount(userId, dbConn, (error, followers) => {
+          if (error) {
+            logger.log({ level: "error", message: error });
+            res.render("errors/error", {
+              errorMsg: "Erro desconhecido."
+            });
+          } else {
+            result[0].followers = followers[0].followers;
+            
+            followingCount(userId, dbConn, (error, following) => {
+              if (error) {
+                logger.log({ level: "error", message: error });
+                res.render("errors/error", {
+                  errorMsg: "Erro desconhecido."
+                });
+              } else {
+                result[0].following = following[0].following;
 
-              res.render("users/profile", {
-                pageTitle: "Perfil",
-                user: result[0],
-                session: req.session
-              });
-            }
-          });
-        }
-      });      
+                follows(req.session.userId, userId, dbConn, (error, follows) => {
+                  if (error) {
+                    logger.log({ level: "error", message: error });
+                    res.render("errors/error", {
+                      errorMsg: "Erro desconhecido."
+                    });
+                  } else {
+                    result[0].follows = follows[0].follows;
+
+                    res.render("users/profile", {
+                      pageTitle: "Perfil",
+                      user: result[0],
+                      session: req.session
+                    });
+                  }
+                });
+              }
+            });
+          }
+        });
+      } else {
+        res.render("errors/unknownUrl", { session: req.session });
+      }
+    }
+  });
+}
+
+module.exports.followController = (req, res, userId) => {
+  dbConn = dbConnection();
+
+  follow(req.session.userId, userId, dbConn, (error, result) => {
+    if (error) {
+      logger.log({ level: "error", message: error });
+      res.render("errors/error", {
+        errorMsg: "Erro desconhecido."
+      });
+    } else {
+      res.redirect("/users/profile/" + userId);
+    }
+  });
+}
+
+module.exports.unfollowController = (req, res, userId) => {
+  dbConn = dbConnection();
+
+  unfollow(req.session.userId, userId, dbConn, (error, result) => {
+    if (error) {
+      logger.log({ level: "error", message: error });
+      res.render("errors/error", {
+        errorMsg: "Erro desconhecido."
+      });
+    } else {
+      res.redirect("/users/profile/" + userId);
     }
   });
 }
