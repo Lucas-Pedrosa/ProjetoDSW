@@ -1,6 +1,9 @@
 <div class="container">
   <div class="main_content">
-    
+    <h2>Livros</h2>
+    <% locals.users.booksResult.forEach(element => { %>
+      <%- include("./partials/bookCard.ejs", {element: element}) %>
+    <% }) %>
   </div>
   
   <div class="side_content">

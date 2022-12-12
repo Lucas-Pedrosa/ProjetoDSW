@@ -238,6 +238,13 @@ form button[type="submit"]:hover {
 .main_content {
   flex-basis: 72%;
   background: var(--color-background-dark);
+  height: 10%;
+  padding-bottom: 15px;
+}
+
+.main_content h2 {
+  text-align: center;
+  margin-top: 15px;
 }
 
 .right_sidebar {
@@ -369,4 +376,40 @@ label #sidebar_btn:hover {
   margin-top: 20px;
   border-bottom-left-radius: 15px;
   border-bottom-right-radius: 15px;
+}
+
+.book_container {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.book_container .book_card {
+  width: 90%;
+  text-align: center;
+  background: var(--color-background-light);
+  color: var(--color-white);
+  border-radius: 15px;
+}
+
+.book_container .book_pic {
+  width: 120px;
+  margin-top: 10px;
+}
+
+.book_container .row {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 20px;
+  margin-top: 20px;
+}
+
+.book_container .col {
+  max-width: 600px;
+}
+
+.book_container p {
+  margin-top: 10px;
 }
