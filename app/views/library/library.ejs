@@ -4,6 +4,20 @@
 <div class="main_content">
   <h2>Biblioteca</h2>
   <% locals.library.forEach(element => { %>
-    <%- include("../partials/bookCard.ejs", {element: element}) %>
+    <div class="book_container">
+      <div class="book_card">
+        <div class="row">
+          <div class="col">
+            <img src="<%= element.link %>" class="book_pic">
+          </div>
+          <div class="col">
+            <h1><%= element.title %></h1>
+            <p><b>Autor: <%= element.author %></b></p>
+            <p><%= element.description %></p>
+            <a class="library_btn" href="/library/remove/<%= element.bookid %>">Remover da biblioteca</a>
+          </div>
+        </div>
+      </div>
+    </div>
   <% }) %>
 </div>

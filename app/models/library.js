@@ -10,5 +10,13 @@ module.exports = {
   addBook: (bookid, userid, connection, callback) => {
     const sql = "INSERT INTO library (bookid, userid) VALUES (?, ?);";
     connection.query(sql, [bookid, userid], callback);
-  }
+  },
+  removeBook: (bookid, userid, connection, callback) => {
+    const sql = "DELETE FROM library WHERE bookid = ? AND userid = ?;";
+    connection.query(sql, [bookid, userid], callback);
+  },
+  bookInLibrary: (bookid, userid, connection, callback) => {
+    const sql = "SELECT COUNT(*) AS inLibrary FROM library WHERE bookid = ? AND userid = ?;";
+    connection.query(sql, [bookid, userid], callback);
+  },
 }
